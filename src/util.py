@@ -15,12 +15,11 @@ def split_data(
     random_state=42,
     keep_gamestats=False,
 ):
-    X = df.drop(target, axis=1)
-
     drop_fields = fields_to_drop
     if not keep_gamestats:
         drop_fields += SINGLE_GAME_COLUMNS
 
+    X = df.drop([target] + drop_fields, axis=1)
     y = df[target]
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=test_size, random_state=random_state
